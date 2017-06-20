@@ -1,24 +1,8 @@
-/*
- * s72898.c
- *
- *  Created on: 06.06.2017
- *      Author: s72898
- *
- *  via shell:
- *  openssl dgst -sha1 -verify pubkey.pem -signature s72898-sig.bin s72898-cipher03.bin
- *  // => Verified OK
- *
- *  USAGE ./s72898_beleg s72898-cipher01.bin s72898-cipher02.bin s72898-cipher03.bin 
- *
- *
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
 #include <unistd.h>
-
 #include <openssl/evp.h>
 #include <openssl/sha.h>
 #include <openssl/err.h>
@@ -188,7 +172,7 @@ int main(int argc, char *argv[]) {
 
 
 
-    /****************** Task 1 *******************/
+    
 
     signature = get_file_content("s72898-sig.bin", &f_size_signature);
     public_key = get_public_key("pubkey.pem");
@@ -209,10 +193,8 @@ int main(int argc, char *argv[]) {
 
     EVP_PKEY_free(public_key);
 
-    /************************************************/
+    
 
-
-    /****************** Task 2 *******************/
 
     private_key_content = get_file_content("s72898-key.bin", &f_size_cipher);
     long private_key_content_length = strlen(private_key_content);
@@ -231,17 +213,17 @@ int main(int argc, char *argv[]) {
     // is setting content into "decrypt.pdf"
     decrypted_content = decrypt_blowfish(encrypted_content_from_verified_cipher, private_key, iv, &f_size_cipher);
 
-    /************************************************/
+   
 
 
-    /****************** Task 3 *******************/
+
 
     // is setting hash into s72898-hash.bin
     sha384sum(decrypted_content, f_size_cipher);
     hash_as_hex = get_file_content(S72898_HASH_BIN, &f_size_cipher);
     printf("\n%s", printf_as_hex(hash_as_hex));
 
-    /************************************************/
+ 
 
     exit(EXIT_SUCCESS);
 }
