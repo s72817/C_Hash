@@ -135,6 +135,8 @@ unsigned char *task_2(unsigned char *verified_file, long *filesize)
 
   iter_pk = 0;
   iter_iv = private_key_filesize-IVLENGTH-1;
+  
+  // FIXME: doesnt work
   for(i = 0; i < private_key_filesize; i++)
   {
     if(i < private_key_filesize-IVLENGTH-1)
@@ -178,7 +180,7 @@ void task_1(unsigned char **verified_file)
   // get signature
   read_file(&signature_buffer, &filesize_signature, signature_file);
 
-  // get cipher file contents
+  // FIXME: bad stile
   if(evp_verify(cipher_file01, public_key, signature_buffer, filesize_signature))
   {
     *verified_file = cipher_file01;
@@ -199,14 +201,7 @@ void task_1(unsigned char **verified_file)
   printf("verified ok: %s\n", *verified_file);
 }
 
-/*
- *
- * verified ok: sXXXXX-cipher03.bin
- * Hex: 971632e7f642afb9f51ff1cc72e03fbd
- *
- * http://hash.online-convert.com/md4-generator => hash the loesung.pdf with md4
- *      971632e7f642afb9f51ff1cc72e03fbd
- * */
+
 int main(int argc, char *argv[])
 {
   unsigned char *hash_buffer;
